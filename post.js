@@ -1,7 +1,6 @@
 const Koa = require('koa')
 const fs = require('fs')
 const app = new Koa()
-var answ=require('./spawn.js')
 
 function render( page ) {
   return new Promise(( resolve, reject ) => {
@@ -28,7 +27,7 @@ app.use( async ( ctx ) => {
     let postData = await parsePostData( ctx )
     console.log(postData);
 
-    var answer=answ.process_string(postData); 
+    var answer=await process_string(postData); 
     console.log(answer);
 
     ctx.body = answer;
@@ -38,8 +37,34 @@ app.use( async ( ctx ) => {
   }
 })
 
-// 解析上下文里node原生请求的POST参数
-function parsePostData( ctx ) {
+
+function process_string(string){
+  return new Promise((resolve, reject) => {
+    try {
+      var spawn = require('child_process').spawn;
+      var ls_var = spawn('python3',['query.py',string]);
+    ls_var.stdout.on('data',function(data)
+              {
+                  console.log('stdout:'+data);
+                  return data;
+              });
+    } catch ( err ) {
+      reject(err)
+    }
+  })
+/*
+  var spawn = require('child_process').spawn;
+  var ls_var = spawn('python3',['query.py',string]);
+  ls_var.stdout.on('data',function(data)
+              {
+                  console.log('stdout:'+data);
+                  return data;
+              });
+              */
+  //,,,,,
+  //var data=datas+" 暂时无法回答。";
+  //return data;
+/*
   return new Promise((resolve, reject) => {
     try {
       let postdata = "";
@@ -54,6 +79,22 @@ function parsePostData( ctx ) {
       reject(err)
     }
   })
+  */
+
+}
+
+
+// 解析上下文里node原生请求的POST参数
+function parsePostData( ctx ) {
+      let postdata = "";
+      ctx.req.addListener('data', (data) => {
+        postdata += data
+      })
+
+      ctx.req.addListener("end",function(){
+      //  let parseData = parseQueryStr( postdata )
+        return postdata;
+      })
 }
 /*
 // 将POST请求参数字符串解析成JSON
