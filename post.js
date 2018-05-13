@@ -1,7 +1,7 @@
 const Koa = require('koa')
 const fs = require('fs')
 const app = new Koa()
-var answ=require('./spawn.js')
+var answ=require('./project_Sphinx/spawn.js')
 
 function render( page ) {
   return new Promise(( resolve, reject ) => {
@@ -25,12 +25,10 @@ app.use( async ( ctx ) => {
     ctx.body = html
   } else if ( ctx.url === '/' && ctx.method === 'POST' ) {
     // 当POST请求的时候，解析POST表单里的数据，并显示出来
-    let postData = await parsePostData( ctx )
+    let postData =await parsePostData( ctx )
     console.log(postData);
-
-    var answer=answ.process_string(postData); 
+    var answer=await answ.process_string(postData); 
     console.log(answer);
-
     ctx.body = answer;
   } else {
     // 其他请求显示404

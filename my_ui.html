@@ -30,7 +30,7 @@
 			function getRobotMsg() {
 				createRequest();
 				var userMsg = $("#user-message").val();
-				var url = "//未定";
+				var url = "/";
 				request.open("POST", url, true);
 				request.onreadystatechange = updateRobotMessage;
 				request.send(userMsg);
