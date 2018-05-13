@@ -24,11 +24,11 @@ app.use( async ( ctx ) => {
     ctx.body = html
   } else if ( ctx.url === '/' && ctx.method === 'POST' ) {
     // 当POST请求的时候，解析POST表单里的数据，并显示出来
-    let postData = await parsePostData( ctx )
-    console.log(postData);
+    let postData =  parsePostData( ctx );
+    console.log("1:"+postData);
 
-    var answer=await process_string(postData); 
-    console.log(answer);
+    var answer= process_string(postData); 
+    console.log("2:"+answer);
 
     ctx.body = answer;
   } else {
@@ -39,20 +39,6 @@ app.use( async ( ctx ) => {
 
 
 function process_string(string){
-  return new Promise((resolve, reject) => {
-    try {
-      var spawn = require('child_process').spawn;
-      var ls_var = spawn('python3',['query.py',string]);
-    ls_var.stdout.on('data',function(data)
-              {
-                  console.log('stdout:'+data);
-                  return data;
-              });
-    } catch ( err ) {
-      reject(err)
-    }
-  })
-/*
   var spawn = require('child_process').spawn;
   var ls_var = spawn('python3',['query.py',string]);
   ls_var.stdout.on('data',function(data)
@@ -60,7 +46,7 @@ function process_string(string){
                   console.log('stdout:'+data);
                   return data;
               });
-              */
+              
   //,,,,,
   //var data=datas+" 暂时无法回答。";
   //return data;
@@ -95,6 +81,7 @@ function parsePostData( ctx ) {
       //  let parseData = parseQueryStr( postdata )
         return postdata;
       })
+      
 }
 /*
 // 将POST请求参数字符串解析成JSON
