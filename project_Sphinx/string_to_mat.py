@@ -48,12 +48,13 @@ model.load_state_dict(torch.load('lm-model.pkl'))
 
 
 def main(argv):
-    string = ''
-    for index in range(len(argv)):
-            string+=' '
-            string+=argv[index]
-    mat = handle_index_list_return_matrix(word_to_ix,model,string)
+    #string = ''
+    #for index in range(len(argv)):
+            #string+=' '
+            #string+=argv[index]
+    mat = handle_index_list_return_matrix(word_to_ix,model,argv)
+    return mat
     print(mat)
 
-main(sys.argv[1:])
+#ain(sys.argv[1:])
 

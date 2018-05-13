@@ -16,7 +16,7 @@ class YouDaoFanyi:
         self.appKey = appKey  # 应用id
         self.appSecret = appSecret  # 应用密钥
         self.langFrom = 'auto'   # 翻译前文字语言,auto为自动检查
-        self.langTo = 'EN'     # 翻译后文字语言,auto为自动检查
+        self.langTo = 'auto'     # 翻译后文字语言,auto为自动检查
 
     def getUrlEncodedData(self, queryText):
         '''
@@ -49,24 +49,24 @@ class YouDaoFanyi:
         '''
         data = json.loads(html)
 
-        print ('-------------------------') 
+        #print ('-------------------------') 
         #print(data)
         translationResult = data['translation']
         if isinstance(translationResult, list):
             translationResult = translationResult[0]
-        print (translationResult)
+        #print (translationResult)
         return translationResult
         if "basic" in data:
             youdaoResult = "\n".join(data['basic']['explains'])
-            print ('有道词典结果--')
-            print (youdaoResult)
+            #print ('有道词典结果--')
+            #print (youdaoResult)
             
-        print ('-------------------------')
+        #print ('-------------------------')
 
     def translate(self, queryText):
         data = self.getUrlEncodedData(queryText)  # 获取url编码过的数据
         target_url = self.url + '?' + data    # 构造目标url
-        print('目标url：'+target_url)
+        #print('目标url：'+target_url)
         # request = urllib2.Request(target_url, headers=self.headers)  # 构造请求
         req = requests.get(target_url, headers=self.headers)  # 构造请求
         # with request.urlopen(request) as response111: # 发送请求
@@ -76,7 +76,7 @@ class YouDaoFanyi:
 
 
 def fanyi(input):
-    print('程序开始运行！')
+    #print('程序开始运行！')
     appKey = '2f95c2bf54998831'  # 应用id
     appSecret = 'JbX7X5oo5jLXbh2L4yBsyykWndma2g55'  # 应用密钥
     fanyi = YouDaoFanyi(appKey, appSecret)
