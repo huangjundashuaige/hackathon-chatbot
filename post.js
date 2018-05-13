@@ -23,12 +23,21 @@ app.use( async ( ctx ) => {
     ctx.body = html
   } else if ( ctx.url === '/' && ctx.method === 'POST' ) {
     // 当POST请求的时候，解析POST表单里的数据，并显示出来
+<<<<<<< HEAD
     let postData =await parsePostData( ctx )
     console.log(postData);
     var answer=process_string(postData); 
     setTimeout(()=>
     {
     console.log(answer);
+=======
+    let postData =  parsePostData( ctx );
+    console.log("1:"+postData);
+
+    var answer= process_string(postData); 
+    console.log("2:"+answer);
+
+>>>>>>> 14c1d6f9713a495357b0db1c875d221292714989
     ctx.body = answer;
     },5000)
   } else {
@@ -39,6 +48,7 @@ app.use( async ( ctx ) => {
 
 
 function process_string(string){
+<<<<<<< HEAD
   //return new Promise((resolve, reject) => {
   //  try {
       var spawn = require('child_process').spawn;
@@ -53,6 +63,8 @@ function process_string(string){
   //  }
   //})
 /*
+=======
+>>>>>>> 14c1d6f9713a495357b0db1c875d221292714989
   var spawn = require('child_process').spawn;
   var ls_var = spawn('python3',['query.py',string]);
   ls_var.stdout.on('data',function(data)
@@ -60,7 +72,7 @@ function process_string(string){
                   console.log('stdout:'+data);
                   return data;
               });
-              */
+              
   //,,,,,
   //var data=datas+" 暂时无法回答。";
   //return data;
@@ -95,6 +107,7 @@ function parsePostData( ctx ) {
       //  let parseData = parseQueryStr( postdata )
         return postdata;
       })
+      
 }
 /*
 // 将POST请求参数字符串解析成JSON
