@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html charset=utf-8">
+		<link href="my.css" rel="stylesheet">
+		<title>chat robot</title>
+
+		<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<script>
+			function createRequest() {
+				try {
+					request = new XMLHttpRequest();
+				} catch(trymicrosoft) {
+					try {
+						request = new ActiveXObject("Msxml2.XMLHTTP");
+					} catch(othermicrosoft) {
+						try {
+							request = new ActiveXObject("Microsoft.XMLHTTP");
+						} catch(failed) {
+							request = null;
+						}
+					}
+				}
+				if(request == null)
+					alert("Error creating request object!");
+			}
+
+			function getTime() {
+				var mydate = new Date();
+				return mydate.toLocaleString();
+			}
+
+			function getRobotMsg() {
+				createRequest();
+				var userMsg = $("#user-message").text();
+				var url = "//未定";
+				request.open("POST", url, true);
+				request.onreadystatechange = updateRobotMessage;
+				request.send(userMsg);
+			}
+
+			function updateRobotMessage() {
+				if(request.readyState == 4) {
+					/* Get the response from the server */
+					var RobotMessage =  '<li><div class="bubbleItem"><span class="bubble rightBubble">'+request.responseText+'<span class="topLevel"></span></span></div></li>';
+					/* Update the HTML */
+					$("#chatBox").append(RobotMessage);
+					
+					window.scrollTo(0,$(document).height());
+				}
+			}
+
+			function clickSubmitButton() {
+				var userMsg = $("#user-message").text();
+				userMessage = '<li><div class="bubbleItem clearfix"><span class="bubble leftBubble">'+userMsg+'<span class="topLevel"></span></span></div></li>';
+				getRobotMsg();
+				$("#user-message").text('');
+				$("#chatBox").append(userMessage);
+
+				window.scrollTo(0,$(document).height());
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span8">
+					<fieldset>
+						<ul id="chatBox" class="chat-box">
+
+							<li></li><div class="bubbleItem">
+								<span class="bubble leftBubble">你好! <span class="topLevel"></span></span>
+							</div></li>
+
+						</ul>
+
+					</fieldset>
+				</div>
+				<!--
+				<div class="row-fluid">
+					<div class="span8">
+						<form class = "chat-info">
+								<div>
+									<textarea name="user" id="user-message1" rows="6" cols="55"></textarea>
+								</div>
+								<div class="">
+									<input value="提交" type="button" class="btn btn-primary" id="submitButton" onClick="clickSubmitButton();" />
+								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			 -->
+	</body>
+	<footer class="chat-edit clearfix">
+    <p class="chat-info"  contenteditable="true" id="user-message"></p>
+    <input class="send-btn fr" value="发送" type="button" id="submitButton" onClick="clickSubmitButton();"/>
+	</footer>
+
+</html>

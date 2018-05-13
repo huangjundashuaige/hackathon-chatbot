@@ -3,7 +3,6 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″>
 		<title>chat robot</title>
 		<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
@@ -40,7 +39,7 @@
 			function updateRobotMessage() {
 				if(request.readyState == 4) {
 					/* Get the response from the server */
-					var RobotMessage = "<li>" +"机器人 "+ getTime() + "</li>" + "<li>" + request.responseText + "</li>";
+					var RobotMessage = "<li>" +"robot "+ getTime() + "</li>" + "<li>" + request.responseText + "</li>";
 					/* Update the HTML */
 					$("#chatBox").append(RobotMessage);
 				}
@@ -53,7 +52,7 @@
 			
 			function clickSubmitButton() {
 				var userMsg = $("#user-message").val();
-				userMessage ="<li>" +"用户 "+ getTime() + "</li>" + "<li>" + userMsg + "</li>";
+				userMessage ="<li>" +"user "+ getTime() + "</li>" + "<li>" + userMsg + "</li>";
 				getRobotMsg();
 				$("#user-message").val('');
 				$("#chatBox").append(userMessage);
@@ -82,9 +81,9 @@
 				<div class="span8">
 					<form>
 						<fieldset>
-							<legend>聊天框</legend>
+							<legend>chatbox</legend>
 							<textarea name="user" id="user-message" rows="6" cols="50"></textarea>
-							<input value="提交" type="button" id="submitButton" onClick="clickSubmitButton();" />
+							<input value="submit" type="button" id="submitButton" onClick="clickSubmitButton();" />
 
 						</fieldset>
 					</form>

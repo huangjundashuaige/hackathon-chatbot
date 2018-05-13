@@ -1,16 +1,18 @@
+html{ font-size:14px}
+
 .send {
 position:relative;
 width:150px;
 height:35px;
 background:#F8C301;
-border-radius:5px; /* 圆角 */
+border-radius:5px; 
 margin:30px auto 0;
 }
 
 .send .arrow {
 position:absolute;
 top:5px;
-right:-16px; /* 圆角的位置需要细心调试哦 */
+right:-16px; 
 width:0;
 height:0;
 font-size:0;
@@ -46,7 +48,9 @@ html {
     overflow-y: visible;
     position: relative;
     list-style-type:none;
-    
+    padding:0px;
+    word-wrap:break-word; 
+	word-break:break-all; 
 }
 
 .chat-trip {
@@ -89,7 +93,7 @@ html {
     position: relative;
     margin-right: 1rem;
     float: right;
-    background-color: #6F83FF;
+    background-color: #003580;
     color: #fff;
 }
 
@@ -116,7 +120,7 @@ html {
     position: absolute;
     top: 1rem;
     right: -8px;
-    border-bottom: 10px solid #6F83FF;
+    border-bottom: 10px solid #003580;
     border-right: 10px solid transparent;
 }
 
@@ -140,14 +144,17 @@ html {
 }
 
 .chat-info {
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid #eee;
+    width: 90%;
+    border-style:solid;
+    border-radius: 6px;
+    border-width: 2px;
+    border-color:  #6F83FF;
     resize: none;
     padding: 0.6rem 0.4rem;
     font-size: 1.6rem;
     color: #666;
     overflow-y: visible;
+    margin-right: 10%;
 }
 
 .send-btn {
@@ -158,6 +165,8 @@ html {
     min-width: 4rem;
     border-radius: 0.4rem;
     margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 1%;
     position: absolute;
     right: 1rem;
     bottom: 1rem;
