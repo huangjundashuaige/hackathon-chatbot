@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const fs = require('fs')
 const app = new Koa()
+var answ=require('./spawn.js')
 
 function render( page ) {
   return new Promise(( resolve, reject ) => {
@@ -24,11 +25,11 @@ app.use( async ( ctx ) => {
     ctx.body = html
   } else if ( ctx.url === '/' && ctx.method === 'POST' ) {
     // 当POST请求的时候，解析POST表单里的数据，并显示出来
-    let postData =  parsePostData( ctx );
-    console.log("1:"+postData);
+    let answer = await parsePostData( ctx )
+   // console.log(postData);
 
-    var answer= process_string(postData); 
-    console.log("2:"+answer);
+    //var answer=answ.process_string(postData); 
+    //console.log(answer);
 
     ctx.body = answer;
   } else {
@@ -37,20 +38,8 @@ app.use( async ( ctx ) => {
   }
 })
 
-
-function process_string(string){
-  var spawn = require('child_process').spawn;
-  var ls_var = spawn('python3',['query.py',string]);
-  ls_var.stdout.on('data',function(data)
-              {
-                  console.log('stdout:'+data);
-                  return data;
-              });
-              
-  //,,,,,
-  //var data=datas+" 暂时无法回答。";
-  //return data;
-/*
+// 解析上下文里node原生请求的POST参数
+function parsePostData( ctx ) {
   return new Promise((resolve, reject) => {
     try {
       let postdata = "";
@@ -59,30 +48,22 @@ function process_string(string){
       })
       ctx.req.addListener("end",function(){
       //  let parseData = parseQueryStr( postdata )
-        resolve( postdata )
+      let answer= process_string(postdata);
+        resolve( answer )
       })
     } catch ( err ) {
       reject(err)
     }
   })
-  */
-
 }
 
+function process_string(datas){
 
-// 解析上下文里node原生请求的POST参数
-function parsePostData( ctx ) {
-      let postdata = "";
-      ctx.req.addListener('data', (data) => {
-        postdata += data
-      })
 
-      ctx.req.addListener("end",function(){
-      //  let parseData = parseQueryStr( postdata )
-        return postdata;
-      })
-      
-}
+  //,,,,,
+  var data=datas+" 暂时无法回答。";
+  return data;
+};
 /*
 // 将POST请求参数字符串解析成JSON
 function parseQueryStr( queryStr ) {
